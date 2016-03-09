@@ -11,7 +11,7 @@ SAFE_STRING := ,-safe-string
 ifeq ($(shell ocamlfind query bisect_ppx > /dev/null 2> /dev/null && \
               echo true),true)
 TEST_TAGS := \
-	-tag-line '<src/*>: package(bisect_ppx)' \
+	-tag-line '<src/**/*>: package(bisect_ppx)' \
 	-tag-line '<test/*.native>: package(bisect_ppx)'
 endif
 endif
@@ -185,7 +185,7 @@ generated = \
 	$(OUTPUT)/$(1).cma $(OUTPUT)/$(1).cmxa $(OUTPUT)/$(1).a $(OUTPUT)/$(1).cmi \
 	$(OUTPUT)/$(1).mli $(OUTPUT)/$(1).cmti $(OUTPUT)/$(1).cmt
 INSTALL := \
-	$(call generated,$(LIB)) \
+	$(call generated,markup/$(LIB)) \
 	$(call generated,$(LIB)_lwt) \
 	$(call generated,$(LIB)_lwt_unix)
 PACKAGE := markup
