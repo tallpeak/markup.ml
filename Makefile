@@ -22,15 +22,16 @@ endif
 
 CFLAGS := -cflags -g,-w,+A-4-9-44-45-48$(BIN_ANNOT)$(SAFE_STRING)
 
-OCAMLBUILD := ocamlbuild -use-ocamlfind -j 0 -no-links
+OCAMLBUILD := \
+	ocamlbuild -use-ocamlfind -plugin-tags 'package(namespaces)' -j 0 -no-links
 
 .PHONY : build
 build :
 	$(OCAMLBUILD) $(CFLAGS) $(LIB).cma $(LIB).cmxa
-	$(call if_package,lwt,\
-	  	$(OCAMLBUILD) $(CFLAGS) $(LIB)_lwt.cma $(LIB)_lwt.cmxa)
-	$(call if_package,lwt.unix,\
-	  	$(OCAMLBUILD) $(CFLAGS) $(LIB)_lwt_unix.cma $(LIB)_lwt_unix.cmxa)
+	# $(call if_package,lwt,\
+	 	# $(OCAMLBUILD) $(CFLAGS) $(LIB)_lwt.cma $(LIB)_lwt.cmxa)
+	#$(call if_package,lwt.unix,\
+	#  	$(OCAMLBUILD) $(CFLAGS) $(LIB)_lwt_unix.cma $(LIB)_lwt_unix.cmxa)
 
 .PHONY : entities
 entities :
@@ -180,14 +181,14 @@ all-tests :
 	@echo
 	make docs
 
-OUTPUT := _build/src
-generated = \
-	$(OUTPUT)/$(1).cma $(OUTPUT)/$(1).cmxa $(OUTPUT)/$(1).a $(OUTPUT)/$(1).cmi \
-	$(OUTPUT)/$(1).mli $(OUTPUT)/$(1).cmti $(OUTPUT)/$(1).cmt
+lib = _build/$(1).cma _build/$(1).cmxa _build/$(1).a
+module = _build/$(1).cmi _build/$(1).mli _build/$(1).cmti _build/$(1).cmt
+
 INSTALL := \
-	$(call generated,markup/$(LIB)) \
-	$(call generated,$(LIB)_lwt) \
-	$(call generated,$(LIB)_lwt_unix)
+	$(call lib,markup) \
+	$(call module,src/markup) \
+	$(call lib,markup_lwt) \
+	$(call module,src/markup/Markup__lwt)
 PACKAGE := markup
 
 .PHONY : ocamlfind-install

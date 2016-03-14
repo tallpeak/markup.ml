@@ -3,8 +3,8 @@
 
 open Common
 
-val select_html : ?limit:int -> char Kstream.t -> Encoding.t cps
-val select_xml : char Kstream.t -> Encoding.t cps
+val select_html : ?limit:int -> char Kstream.t -> Encoding_.t cps
+val select_xml : char Kstream.t -> Encoding_.t cps
 
 (* The following values are exposed for testing. They are not used outside the
    module. *)
@@ -18,4 +18,4 @@ val meta_tag_prescan :
   ?limit:int ->
   char Kstream.t -> string option cps
 val read_xml_encoding_declaration :
-  char Kstream.t -> Encoding.t -> string option cps
+  char Kstream.t -> Encoding_.t -> string option cps

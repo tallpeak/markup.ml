@@ -2,9 +2,13 @@
 <src/**> or <tools> or <test/**> or <doc>: include, traverse
 
 <src/markup/*> or <test/**>: package(uutf)
-<src/markup_lwt*>: package(lwt)
+<src/markup/lwt*>: package(lwt)
 
 <src/translate_entities.*>: package(yojson)
+
+"src/markup": namespace, namespace_lib(markup)
+<src/markup/lwt.ml*>: namespace_lib(markup_lwt)
+"src/markup_lwt.ml": namespace_lib(markup_lwt)
 
 <test/*>: package(oUnit)
 <test/test_lwt.*>: package(lwt), package(lwt.unix)

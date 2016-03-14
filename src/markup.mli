@@ -803,10 +803,9 @@ end
 
 module Asynchronous (IO : IO) : ASYNCHRONOUS with type 'a io := 'a IO.t
 
-val kstream : ('a, _) stream -> 'a Kstream.t
-val of_kstream : 'a Kstream.t -> ('a, _) stream
-
 (**/**)
+
+module Lwt = Markup__lwt
 
 
 

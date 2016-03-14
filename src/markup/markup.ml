@@ -51,8 +51,6 @@ let of_list = Kstream.of_list
 
 type location = Common.location
 
-module Error = Error
-
 
 
 type name = Common.name
@@ -91,7 +89,7 @@ module Cps =
 struct
   let parse_xml
       report ?encoding namespace entity context source =
-    let with_encoding (encoding : Encoding.t) k =
+    let with_encoding (encoding : Encoding_.t) k =
       source
       |> encoding ~report
       |> Input.preprocess Common.is_valid_xml_char report
@@ -117,7 +115,7 @@ struct
     |> Utility.strings_to_bytes
 
   let parse_html report ?encoding _context source =
-    let with_encoding (encoding : Encoding.t) k =
+    let with_encoding (encoding : Encoding_.t) k =
       source
       |> encoding ~report
       |> Input.preprocess Common.is_valid_html_char report
@@ -177,7 +175,7 @@ sig
 
   module Encoding :
   sig
-    type t = Encoding.t
+    type t = Encoding_.t
 
     val decode :
       ?report:(location -> Error.t -> unit io) -> t ->
@@ -240,9 +238,9 @@ struct
 
   module Encoding =
   struct
-    include Encoding
+    include Encoding_
 
-    let decode ?(report = fun _ _ -> IO.return ()) (f : Encoding.t) s =
+    let decode ?(report = fun _ _ -> IO.return ()) (f : Encoding_.t) s =
       f ~report:(_wrap_report report) s
   end
 

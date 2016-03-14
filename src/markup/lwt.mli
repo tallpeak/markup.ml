@@ -1,6 +1,3 @@
-(* This file is part of Markup.ml, released under the BSD 2-clause license. See
-   doc/LICENSE for details, or visit https://github.com/aantron/markup.ml. *)
-
 (** Lwt interface to Markup.ml.
 
     The majority of the functions in this interface are listed in the signature
@@ -46,7 +43,7 @@ val ensure_tail_calls : ?hook:((exn -> unit) ref) -> unit -> unit
     deprecated, and the implementation will be changed to a no-op.
  *)
 
-include Markup.ASYNCHRONOUS with type 'a io := 'a Lwt.t
+include ASYNCHRONOUS with type 'a io := 'a Lwt.t
 
 val lwt_stream : 'a Lwt_stream.t -> ('a, async) stream
 (** Adapts an Lwt stream to a Markup.ml stream. *)

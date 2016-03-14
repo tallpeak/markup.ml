@@ -3,7 +3,7 @@
 
 open Common
 open Kstream
-open Encoding
+open Encoding_
 
 let name_to_encoding = function
   | "utf-8" -> Some utf_8
@@ -482,7 +482,7 @@ let meta_tag_prescan =
     in
     scan ()
 
-let read_xml_encoding_declaration bytes (family : Encoding.t) throw k =
+let read_xml_encoding_declaration bytes (family : Encoding_.t) throw k =
   let bytes, restore = Kstream.checkpoint bytes in
   let k v = restore (); k v in
 
